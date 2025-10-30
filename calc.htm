@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Calculator</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f4f4f9;
+      font-family: Arial, sans-serif;
+      transition: background 0.3s;
+    }
+    .calculator {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+      width: 280px;
+      text-align: center;
+      transition: background 0.3s, color 0.3s;
+    }
+    input[type="text"] {
+      width: 100%;
+      height: 45px;
+      margin-bottom: 15px;
+      text-align: right;
+      font-size: 20px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    button {
+      height: 50px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .equal {
+      grid-column: span 2;
+      background: #2196F3;
+    }
+    .equal:hover {
+      background: #1976D2;
+    }
+    .clear {
+      background: #f44336;
+    }
+    .clear:hover {
+      background: #d32f2f;
+    }
+    .dark-mode {
+      background: #222;
+      color: #fff;
+    }
+    .dark-mode input {
+      background: #444;
+      color: #fff;
+      border: 1px solid #666;
+    }
+    .dark-mode button {
+      background: #333;
+      color: #fff;
+    }
+    .dark-mode button:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator" id="calc">
+    <input type="text" id="display" disabled>
+    <div class="buttons">
+      <button onclick="clearDisplay()" class="clear">C</button>
+      <button onclick="backspace()">⌫</button>
+      <button onclick="appendValue('%')">%</button>
+      <button onclick="appendValue('/')">÷</button>
+      
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button onclick="appendValue('*')">×</button>
+      
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button onclick="appendValue('-')">-</button>
+      
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button onclick="appendValue('+')">+</button>
+      
+      <button onclick="appendValue('0')" style="grid-column: span 2;">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button onclick="calculate()" class="equal">=</button>
+
+      <button onclick="square()">x²</button>
+      <button onclick="sqrt()">√x</button>
+      <button onclick="toggleMode()" style="grid-column: span 2;">🌙/☀️</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById("display");
+    let calc = document.getElementById("calc");
+
+    function appendValue(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = "";
+    }
+
+    function backspace() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+      } catch (e) {
+        alert("Invalid Expression");
+      }
+    }
+
+    function square() {
+      if (display.value !== "") {
+        display.value = Math.pow(Number(display.value), 2);
+      }
+    }
+
+    function sqrt() {
+      if (display.value !== "") {
+        display.value = Math.sqrt(Number(display.value));
+      }
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle("dark-mode");
+      calc.classList.toggle("dark-mode");
+    }
+  </script>
+</body>
+</html>
